@@ -1,4 +1,7 @@
-
+using JetBrains.Annotations;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,24 +11,20 @@ public class M1ProjectTest : MonoBehaviour
     [SerializeField] Hero A;
     [SerializeField] Hero B;
     float timer = 0f;
-
-
     // Start is called before the first frame update
     void Start()
     {
 
-        //Stats statsA = new Stats(5, 3, 3, 4, 3, 4, 6);
-        //Stats statsweaponA = new Stats(1, 0, 2, 10, 4, 2, 0);
+        Stats statsA = new Stats(10, 5, 7, 4, 3, 4, 6);
+        Stats statsweaponA = new Stats(1, 0, 2, 0, 4, 2, 0);
+        Weapon weaponA = new Weapon("Spada", Weapon.DAMAGE_TYPE.PHYSICAL, ELEMENT.NONE, statsweaponA);
+        A = new Hero("Aragorn", 100, statsA, ELEMENT.ICE, ELEMENT.FIRE, weaponA);
 
-        //Weapon weaponA = new Weapon("Spada", Weapon.DAMAGE_TYPE.PHYSICAL, ELEMENT.NONE, statsweaponA);
-        //A = new Hero;
 
-
-        //Stats statsB = new Stats(3, 2, 3, 3, 3, 5, 3);
-        //Stats statsweaponB = new Stats(5, 2, 0, 10, 2, 0, 0);
-
-        //Weapon weaponB = new Weapon("Bastone", Weapon.DAMAGE_TYPE.MAGICAL, ELEMENT.LIGHTNING, statsweaponB);
-        //B = new Hero;
+        Stats statsB = new Stats(10, 5, 7, 4, 3, 4, 6);
+        Stats statsweaponB = new Stats(5, 2, 0, 0, 2, 0, 0);
+        Weapon weaponB = new Weapon("Bastone", Weapon.DAMAGE_TYPE.MAGICAL, ELEMENT.LIGHTNING, statsweaponB);
+        B = new Hero("Gandalf", 200, statsB, ELEMENT.LIGHTNING, ELEMENT.NONE, weaponB);
 
     }
 
@@ -35,10 +34,10 @@ public class M1ProjectTest : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (timer >= 5f)
+        if (timer >= 1f)
         {
 
-
+        
 
 
             int spdtotA = A.GetBaseStats().spd + A.GetWeapon().GetBonusStats().spd;
@@ -61,7 +60,7 @@ public class M1ProjectTest : MonoBehaviour
 
                 Combact(B, A);
                 if (B.IsAlive()) { Combact(A, B); }
-
+  
 
             }
 
@@ -74,25 +73,20 @@ public class M1ProjectTest : MonoBehaviour
     public void Combact(Hero attacker, Hero defender)
     {
 
+
         if (!attacker.IsAlive() || !defender.IsAlive()) { return; }
 
-        int attackerCrit = attacker.GetBaseStats().crt + attacker.GetWeapon().GetBonusStats().crt;
-        bool didCrit = GameFormulas.IsCrit(attackerCrit);
-
-        Debug.Log($"<color=white>Attacca : {attacker.Name}</color> <color=blue>  Difende : {defender.Name} </color>");
+        Debug.Log($"<color=white>Attacca : { attacker.GetName() }</color> <color=blue>  Difende : { defender.GetName()} </color>");
 
 
         if (GameFormulas.HasHit(attacker.GetBaseStats(), defender.GetBaseStats()))
         {
 
-            GameFormulas.CalculateDebuff(attacker.GetWeapon().Getelm(), defender, didCrit);
-            int damage = GameFormulas.CalculateDamage(attacker, defender, didCrit);
-
             if (GameFormulas.HasElementDisadvantage(attacker.GetWeapon().Getelm(), defender))
             {
 
                 Debug.Log("<color=red> RESIST!!! </color>");
-
+             
 
             }
 
@@ -105,9 +99,11 @@ public class M1ProjectTest : MonoBehaviour
 
             else { }
 
+            int damage = GameFormulas.CalculateDamage(attacker, defender);
+
             defender.TakeDamage(damage);
 
-            Debug.Log($"{defender.Name} subisce <color=red>{damage} danni!</color> <color=green> HP rimanenti:  {defender.Hp}</color>");
+            Debug.Log( $"{defender.GetName()} subisce <color=red>{damage} danni!</color> <color=green> HP rimanenti:  {defender.GetHp()}</color>");
 
 
             if (defender.IsAlive()) { return; }
@@ -115,9 +111,9 @@ public class M1ProjectTest : MonoBehaviour
             else
             {
 
-                Debug.Log($"<color=red>***** {defender.Name} E' MORTO *****</color>");
+                Debug.Log($"<color=red>***** {defender.GetName()} E' MORTO *****</color>");
                 Debug.Log($"<color=magenta>***** COMBATTIMENTO TERMINATO *****</color>");
-                string winner = A.IsAlive() ? A.Name : B.Name;
+                string winner = A.IsAlive() ? A.GetName() : B.GetName();
                 Debug.Log($"<color=cyan>Vincitore: {winner}</color>");
 
             }

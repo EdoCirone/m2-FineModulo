@@ -1,4 +1,7 @@
-
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public static class GameFormulas
@@ -22,8 +25,8 @@ public static class GameFormulas
 
     public static float EvaluateElementalModifier(ELEMENT attackElement, Hero defender)
     {
-
         if (HasElementAdvantage(attackElement, defender)) { return 1.5f; }
+
 
         if (HasElementDisadvantage(attackElement, defender)) { return 0.5f; }
 
@@ -57,6 +60,60 @@ public static class GameFormulas
 
             Debug.Log("CRIT!");
             return true;
+        }
+
+        return false;
+
+    }
+
+    public static void CalculateDebuf(ELEMENT attackerelement, Hero defender)
+    {
+
+        Stats DebuffedStats = defender.GetBaseStats();
+
+        switch (attackerelement)
+        {
+            case ELEMENT.ICE:
+
+                Debug.Log($"{defender} it's freez");
+                Stats debuffedStats = defender.GetBaseStats();
+                debuffedStats.spd = debuffedStats.spd - 1;
+                defender.SetBaseStats(debuffedStats);
+
+
+                break;
+
+            case ELEMENT.FIRE:
+
+                Debug.Log($"{defender} it's burnt");
+                int debuffedhp = defender.GetHp();
+                debuffedhp -= 1;
+                defender.SetHp(debuffedhp);
+
+                break;
+
+            case ELEMENT.LIGHTNING:
+
+                Debug.Log($"{defender} it's blind");
+                Stats debuffedstats = defender.GetBaseStats();
+                debuffedstats.aim = debuffedstats.aim - 1;
+                defender.SetBaseStats(debuffedstats);
+
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    public static bool ItDebuffed(Hero attacker)
+    {
+
+        if (IsCrit(attacker.GetBaseStats().crt))
+        {
+
+            return true;
 
         }
 
@@ -64,70 +121,10 @@ public static class GameFormulas
 
     }
 
-    public static void CalculateDebuff(ELEMENT attackerelement, Hero defender, bool isCrit)
+
+
+    public static int CalculateDamage(Hero attacker, Hero defender)
     {
-        defender.DebuffTime();
-
-        if (defender.GetDebuffed()) return;
-
-        if (!isCrit) return;
-
-        {
-            Stats DebuffedStats = defender.GetBaseStats();
-
-            switch (attackerelement)
-
-            {
-                case ELEMENT.ICE:
-
-                    Debug.Log($"{defender.Name} it's freez");
-                    DebuffedStats.spd = DebuffedStats.spd - 1;
-                    defender.SetBaseStats(DebuffedStats);
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
-
-                case ELEMENT.FIRE:
-
-                    Debug.Log($"{defender.Name} is burnt");
-                    defender.Hp -= 1;
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
-
-                case ELEMENT.LIGHTNING:
-
-                    Debug.Log($"{defender.Name} it's blind");
-                    DebuffedStats.aim = DebuffedStats.aim - 1;
-                    defender.SetBaseStats(DebuffedStats);
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
-
-                default:
-                    break;
-
-            }
-        }
-
-    }
-
-
-
-
-
-    //public static bool IsDebuff(Hero hero)
-    //{
-
-    //    return !hero.GetDebuffed() && IsCrit(hero.GetBaseStats().crt);
-
-    //}
-
-
-
-    public static int CalculateDamage(Hero attacker, Hero defender, bool isCrit)
-    {
-
 
         int atk = attacker.GetBaseStats().atk + attacker.GetWeapon().GetBonusStats().atk;
         int def = attacker.GetBaseStats().def + attacker.GetWeapon().GetBonusStats().def;
@@ -141,20 +138,19 @@ public static class GameFormulas
         {
 
             case Weapon.DAMAGE_TYPE.PHYSICAL:
-                def = defender.GetBaseStats().def + defender.GetWeapon().GetBonusStats().def;
+                def = defender.GetBaseStats().def;
                 break;
-
             case Weapon.DAMAGE_TYPE.MAGICAL:
-                def = defender.GetBaseStats().res + defender.GetWeapon().GetBonusStats().res;
+                def = defender.GetBaseStats().res;
                 break;
-        }
 
+        }
 
         float dmg = (atk - def);
 
         dmg *= EvaluateElementalModifier(attacker.GetWeapon().Getelm(), defender);
 
-        if (isCrit) { dmg *= 2; };
+        if (IsCrit(attacker.GetBaseStats().crt)) { dmg *= 2; }
 
         return (dmg >= 0) ? (int)dmg : 0;
 

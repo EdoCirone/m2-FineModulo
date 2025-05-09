@@ -471,59 +471,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   A:
-    name: asfdfadf
-    hp: 1000
+    name: 
+    hp: 0
     baseStats:
-      atk: 10
-      def: 1
-      res: 100
-      spd: 5
-      crt: 100
-      aim: 2
-      eva: 1
-    resistance: 1
-    weakness: 2
-    Weapon:
-      name: wqwr
-      dmgType: 0
-      elm: 0
-      bonusStats:
-        atk: 3
-        def: 2
-        res: 1
-        spd: 3
-        crt: 2
-        aim: 1
-        eva: 1
-    Debuffed: 0
-    timer: 3
-  B:
-    name: adasd
-    hp: 1000
-    baseStats:
-      atk: 1
-      def: 3
-      res: 6
-      spd: 8
-      crt: 5
-      aim: 4
-      eva: 3
+      atk: 0
+      def: 0
+      res: 0
+      spd: 0
+      crt: 0
+      aim: 0
+      eva: 0
     resistance: 0
     weakness: 0
     Weapon:
-      name: asdsadssss
+      name: 
       dmgType: 0
       elm: 0
       bonusStats:
-        atk: 3
-        def: 2
-        res: 5
-        spd: 2
-        crt: 4
-        aim: 1
-        eva: 1
-    Debuffed: 0
-    timer: 3
+        atk: 0
+        def: 0
+        res: 0
+        spd: 0
+        crt: 0
+        aim: 0
+        eva: 0
+  B:
+    name: 
+    hp: 0
+    baseStats:
+      atk: 0
+      def: 0
+      res: 0
+      spd: 0
+      crt: 0
+      aim: 0
+      eva: 0
+    resistance: 0
+    weakness: 0
+    Weapon:
+      name: 
+      dmgType: 0
+      elm: 0
+      bonusStats:
+        atk: 0
+        def: 0
+        res: 0
+        spd: 0
+        crt: 0
+        aim: 0
+        eva: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
