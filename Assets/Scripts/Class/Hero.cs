@@ -11,7 +11,7 @@ public class Hero
     [SerializeField] private ELEMENT resistance;
     [SerializeField] private ELEMENT weakness;
     [SerializeField] private Weapon Weapon;
-    [SerializeField] private bool Debuffed;
+    //[SerializeField] private bool Debuffed;
     [SerializeField] private int timer = 3;
 
 
@@ -40,26 +40,26 @@ public class Hero
 
     public bool IsAlive() => hp > 0;
 
-    public void DebuffTime()
-    {
+    //public void DebuffTime()
+    //{
 
-        if (!Debuffed) { return; }
+    //    if (!Debuffed) { return; }
 
-        timer--;
+    //    timer--;
 
-        if (timer <= 0)
-        {
-            Debug.Log($" {name} Debuff finish");
-            Debuffed = false;
-        }
+    //    if (timer <= 0)
+    //    {
+    //        Debug.Log($" {name} Debuff finish");
+    //        Debuffed = false;
+    //    }
 
 
-    }
+    //}
 
-    public void ResetDebuffTime()
-    {
-        timer = 3;
-    }
+    //public void ResetDebuffTime()
+    //{
+    //    timer = 3;
+    //}
 
     //GET SET
 
@@ -87,8 +87,8 @@ public class Hero
     public ELEMENT GetWeakness() => weakness;
     public void SetWeakness(ELEMENT weakness) { this.weakness = weakness; }
 
-    public bool GetDebuffed() => Debuffed;
-    public void SetDebuffed(bool Debuffed) { this.Debuffed = Debuffed; }
+    //public bool GetDebuffed() => Debuffed;
+    //public void SetDebuffed(bool Debuffed) { this.Debuffed = Debuffed; }
 
     public Weapon GetWeapon() => Weapon;
     public void SetWeapon(Weapon weapon) { this.Weapon = weapon; }

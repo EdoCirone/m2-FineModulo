@@ -64,53 +64,53 @@ public static class GameFormulas
 
     }
 
-    public static void CalculateDebuff(ELEMENT attackerelement, Hero defender, bool isCrit)
-    {
-        defender.DebuffTime();
+    //public static void CalculateDebuff(ELEMENT attackerelement, Hero defender, bool isCrit)
+    //{
+    //    defender.DebuffTime();
 
-        if (defender.GetDebuffed()) return;
+    //    if (defender.GetDebuffed()) return;
 
-        if (!isCrit) return;
+    //    if (!isCrit) return;
 
-        {
-            Stats DebuffedStats = defender.GetBaseStats();
+    //    {
+    //        Stats DebuffedStats = defender.GetBaseStats();
 
-            switch (attackerelement)
+    //        switch (attackerelement)
 
-            {
-                case ELEMENT.ICE:
+    //        {
+    //            case ELEMENT.ICE:
 
-                    Debug.Log($"{defender.Name} it's freez");
-                    DebuffedStats.spd = DebuffedStats.spd - 1;
-                    defender.SetBaseStats(DebuffedStats);
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
+    //                Debug.Log($"{defender.Name} it's freez");
+    //                DebuffedStats.spd = DebuffedStats.spd - 1;
+    //                defender.SetBaseStats(DebuffedStats);
+    //                defender.SetDebuffed(true);
+    //                //defender.ResetDebuffTime();
+    //                break;
 
-                case ELEMENT.FIRE:
+    //            case ELEMENT.FIRE:
 
-                    Debug.Log($"{defender.Name} is burnt");
-                    defender.Hp -= 1;
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
+    //                Debug.Log($"{defender.Name} is burnt");
+    //                defender.Hp -= 1;
+    //                defender.SetDebuffed(true);
+    //                //defender.ResetDebuffTime();
+    //                break;
 
-                case ELEMENT.LIGHTNING:
+    //            case ELEMENT.LIGHTNING:
 
-                    Debug.Log($"{defender.Name} it's blind");
-                    DebuffedStats.aim = DebuffedStats.aim - 1;
-                    defender.SetBaseStats(DebuffedStats);
-                    defender.SetDebuffed(true);
-                    defender.ResetDebuffTime();
-                    break;
+    //                Debug.Log($"{defender.Name} it's blind");
+    //                DebuffedStats.aim = DebuffedStats.aim - 1;
+    //                defender.SetBaseStats(DebuffedStats);
+    //                defender.SetDebuffed(true);
+    //                //defender.ResetDebuffTime();
+    //                break;
 
-                default:
-                    break;
+    //            default:
+    //                break;
 
-            }
-        }
+    //        }
+    //    }
 
-    }
+    //}
 
 
 
