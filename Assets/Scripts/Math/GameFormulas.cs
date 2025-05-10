@@ -52,7 +52,7 @@ public static class GameFormulas
     public static bool IsCrit(int critValue)
     {
 
-        if (Random.Range(0, 99) < critValue)
+        if (Random.Range(0, 100) < critValue)
         {
 
             Debug.Log("CRIT!");

@@ -85,7 +85,7 @@ public class M1ProjectTest : MonoBehaviour
         if (GameFormulas.HasHit(attacker.GetBaseStats(), defender.GetBaseStats()))
         {
 
-            GameFormulas.CalculateDebuff(attacker.GetWeapon().Getelm(), defender, didCrit);
+            //GameFormulas.CalculateDebuff(attacker.GetWeapon().Getelm(), defender, didCrit);
             int damage = GameFormulas.CalculateDamage(attacker, defender, didCrit);
 
             if (GameFormulas.HasElementDisadvantage(attacker.GetWeapon().Getelm(), defender))
@@ -105,9 +105,9 @@ public class M1ProjectTest : MonoBehaviour
 
             else { }
 
-            defender.TakeDamage(damage);
+            //defender.TakeDamage(damage);
 
-            Debug.Log($"{defender.Name} subisce <color=red>{damage} danni!</color> <color=green> HP rimanenti:  {defender.Hp}</color>");
+            Debug.Log($"{defender.Name} subisce <color=red> {damage} danni!</color> <color=green> HP rimanenti:  {defender.Hp}</color>");
 
 
             if (defender.IsAlive()) { return; }

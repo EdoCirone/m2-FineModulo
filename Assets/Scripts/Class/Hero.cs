@@ -12,7 +12,7 @@ public class Hero
     [SerializeField] private ELEMENT weakness;
     [SerializeField] private Weapon Weapon;
     //[SerializeField] private bool Debuffed;
-    [SerializeField] private int timer = 3;
+    //[SerializeField] private int timer = 3;
 
 
 
