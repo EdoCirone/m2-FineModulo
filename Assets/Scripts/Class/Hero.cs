@@ -18,17 +18,17 @@ public class Hero
 
     public Hero (string name, int hp, Stats baseStats, ELEMENT resistance, ELEMENT weakness, Weapon Weapon)
     {
-        this.name = "Aragorn";
-        this.hp = 200;
-        this.baseStats = new Stats(5, 6, 3, 4, 2, 1, 5);
-        this.resistance = ELEMENT.FIRE;
-        this.weakness = ELEMENT.ICE;
-        this.Weapon = new Weapon("Spada", Weapon.DAMAGE_TYPE.PHYSICAL, ELEMENT.NONE, new Stats(1, 0, 2, 10, 4, 2, 0));
+        this.name = name;
+        this.hp = hp;
+        this.baseStats = baseStats;
+        this.resistance = resistance;
+        this.weakness = weakness;
+        this.Weapon = Weapon;
     }
 
 
 
-    public void AddHp(int ammount)
+    private void AddHp(int ammount)
     {
         Hp = (hp + ammount);
     }
@@ -38,28 +38,7 @@ public class Hero
         AddHp(-damage);
     }
 
-    public bool IsAlive() => hp > 0;
-
-    //public void DebuffTime()
-    //{
-
-    //    if (!Debuffed) { return; }
-
-    //    timer--;
-
-    //    if (timer <= 0)
-    //    {
-    //        Debug.Log($" {name} Debuff finish");
-    //        Debuffed = false;
-    //    }
-
-
-    //}
-
-    //public void ResetDebuffTime()
-    //{
-    //    timer = 3;
-    //}
+    private bool IsAlive() => hp > 0;
 
     //GET SET
 
@@ -86,12 +65,9 @@ public class Hero
 
     public ELEMENT GetWeakness() => weakness;
     public void SetWeakness(ELEMENT weakness) { this.weakness = weakness; }
-
-    //public bool GetDebuffed() => Debuffed;
-    //public void SetDebuffed(bool Debuffed) { this.Debuffed = Debuffed; }
-
     public Weapon GetWeapon() => Weapon;
     public void SetWeapon(Weapon weapon) { this.Weapon = weapon; }
 
+    public bool GetIsAlive() => IsAlive();
 }
 

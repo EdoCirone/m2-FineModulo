@@ -35,7 +35,7 @@ public class M1ProjectTest : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (timer >= 5f)
+        if (timer >= 1f)
         {
 
 
@@ -52,7 +52,7 @@ public class M1ProjectTest : MonoBehaviour
             {
 
                 Combact(A, B);
-                if (B.IsAlive()) { Combact(B, A); }
+                if (B.GetIsAlive()) { Combact(B, A); }
 
             }
 
@@ -60,7 +60,7 @@ public class M1ProjectTest : MonoBehaviour
             {
 
                 Combact(B, A);
-                if (B.IsAlive()) { Combact(A, B); }
+                if (B.GetIsAlive()) { Combact(A, B); }
 
 
             }
@@ -74,10 +74,10 @@ public class M1ProjectTest : MonoBehaviour
     public void Combact(Hero attacker, Hero defender)
     {
 
-        if (!attacker.IsAlive() || !defender.IsAlive()) { return; }
+        if (!attacker.GetIsAlive() || !defender.GetIsAlive()) { return; }
 
         int attackerCrit = attacker.GetBaseStats().crt + attacker.GetWeapon().GetBonusStats().crt;
-        bool didCrit = GameFormulas.IsCrit(attackerCrit);
+
 
         Debug.Log($"<color=white>Attacca : {attacker.Name}</color> <color=blue>  Difende : {defender.Name} </color>");
 
@@ -86,7 +86,14 @@ public class M1ProjectTest : MonoBehaviour
         {
 
             //GameFormulas.CalculateDebuff(attacker.GetWeapon().Getelm(), defender, didCrit);
+            bool didCrit = GameFormulas.IsCrit(attackerCrit);
             int damage = GameFormulas.CalculateDamage(attacker, defender, didCrit);
+
+            if (didCrit)
+            {
+                Debug.Log("<color=yellow>CRIT!</color>");
+            }
+
 
             if (GameFormulas.HasElementDisadvantage(attacker.GetWeapon().Getelm(), defender))
             {
@@ -105,19 +112,19 @@ public class M1ProjectTest : MonoBehaviour
 
             else { }
 
-            //defender.TakeDamage(damage);
+            defender.TakeDamage(damage);
 
             Debug.Log($"{defender.Name} subisce <color=red> {damage} danni!</color> <color=green> HP rimanenti:  {defender.Hp}</color>");
 
 
-            if (defender.IsAlive()) { return; }
+            if (defender.GetIsAlive()) { return; }
 
             else
             {
 
                 Debug.Log($"<color=red>***** {defender.Name} E' MORTO *****</color>");
                 Debug.Log($"<color=magenta>***** COMBATTIMENTO TERMINATO *****</color>");
-                string winner = A.IsAlive() ? A.Name : B.Name;
+                string winner = A.GetIsAlive() ? A.Name : B.Name;
                 Debug.Log($"<color=cyan>Vincitore: {winner}</color>");
 
             }

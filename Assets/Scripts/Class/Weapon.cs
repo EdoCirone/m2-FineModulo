@@ -18,10 +18,10 @@ public class Weapon
 
     public Weapon( string name, DAMAGE_TYPE dmgType, ELEMENT elm, Stats bonusStats)
     {
-        this.name = "Martello";
-        this.dmgType = DAMAGE_TYPE.PHYSICAL;
-        this.elm = ELEMENT.ICE;
-        this.bonusStats =  bonusStats;
+        this.name = name;
+        this.dmgType = dmgType;
+        this.elm = elm;
+        this.bonusStats = bonusStats;
     }
 
     public string Getname() => name; 

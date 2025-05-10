@@ -1,10 +1,3 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
 [System.Serializable]
 public struct Stats
 {
@@ -29,7 +22,7 @@ public struct Stats
 
     }
 
-    static  Stats Sum(Stats stats, Stats stats2)
+    public static Stats Sum(Stats stats, Stats stats2)
     {
 
 

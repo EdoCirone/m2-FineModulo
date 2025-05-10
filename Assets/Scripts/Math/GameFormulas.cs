@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class GameFormulas
@@ -44,7 +45,7 @@ public static class GameFormulas
 
         }
 
-        Debug.Log("Hai Colpito");
+        Debug.Log("Colpito");
         return true;
 
     }
@@ -55,7 +56,7 @@ public static class GameFormulas
         if (Random.Range(0, 100) < critValue)
         {
 
-            Debug.Log("CRIT!");
+            Debug.Log("<color=yellow>CRIT!</color>");
             return true;
 
         }
@@ -129,13 +130,10 @@ public static class GameFormulas
     {
 
 
-        int atk = attacker.GetBaseStats().atk + attacker.GetWeapon().GetBonusStats().atk;
-        int def = attacker.GetBaseStats().def + attacker.GetWeapon().GetBonusStats().def;
-        int res = attacker.GetBaseStats().res + attacker.GetWeapon().GetBonusStats().res;
-        int spd = attacker.GetBaseStats().spd + attacker.GetWeapon().GetBonusStats().spd;
-        int crt = attacker.GetBaseStats().crt + attacker.GetWeapon().GetBonusStats().crt;
-        int aim = attacker.GetBaseStats().aim + attacker.GetWeapon().GetBonusStats().aim;
-        int eva = attacker.GetBaseStats().eva + attacker.GetWeapon().GetBonusStats().eva;
+
+        Stats Somma = Stats.Sum(attacker.GetBaseStats(), attacker.GetWeapon().GetBonusStats());
+
+        int def = 0;
 
         switch (attacker.GetWeapon().GetdmgTyp())
         {
@@ -150,11 +148,12 @@ public static class GameFormulas
         }
 
 
-        float dmg = (atk - def);
+        float dmg = (Somma.atk - def);
 
         dmg *= EvaluateElementalModifier(attacker.GetWeapon().Getelm(), defender);
 
-        if (isCrit) { dmg *= 2; };
+        if (isCrit) { dmg *= 2; }
+        ;
 
         return (dmg >= 0) ? (int)dmg : 0;
 
