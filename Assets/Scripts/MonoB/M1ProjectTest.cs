@@ -89,12 +89,6 @@ public class M1ProjectTest : MonoBehaviour
             bool didCrit = GameFormulas.IsCrit(attackerCrit);
             int damage = GameFormulas.CalculateDamage(attacker, defender, didCrit);
 
-            if (didCrit)
-            {
-                Debug.Log("<color=yellow>CRIT!</color>");
-            }
-
-
             if (GameFormulas.HasElementDisadvantage(attacker.GetWeapon().Getelm(), defender))
             {
 
